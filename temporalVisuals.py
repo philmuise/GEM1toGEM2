@@ -134,6 +134,36 @@ class temporalVisuals(object):
         mxdPath = os.path.join(os.path.dirname(workspace), "templates", "temporal_analysis.mxd")
         mxd = arcpy.mapping.MapDocument(mxdPath)
 
+        # ========================================== #
+        # Create and populate VISIBLE subtype Field  #
+        # ========================================== #
+
+        # Add VISIBLE field
+        fieldName = "VISIBLE"
+        arcpy.AddField_management(targetsFC,fieldName,'SHORT')
+
+        # Set VISIBLE as subtype
+        arcpy.SetSubtypeField_management(targetsFC, fieldName)
+
+        # Save subtypes to a dictionary
+        stypeDict = {"0": "Look-a-Like", "1": "Dark Feature"}
+
+        # use a for loop to cycle through the dictionary
+        for code in stypeDict:
+            arcpy.AddSubtype_management(targetsFC, code, stypeDict[code])
+
+        # Set default subtype to "Dark Feature"
+        arcpy.SetDefaultSubtype_management(targetsFC, "1")
+        
+        # Set each feature to a VISIBLE value of 1. This will be used in the visualisation analysis process to hide look-a-likes
+        with arcpy.da.UpdateCursor(targetsFC, fieldName) as cursor:
+             for row in cursor:
+                 row[0] = 1
+                 cursor.updateRow(row)
+
+        # add VISIBLE field to describe
+        targetDesc = arcpy.Describe(targetsFC)
+
         arcpy.CheckOutExtension("Spatial")
 
         # Set log configuration
@@ -165,7 +195,7 @@ class temporalVisuals(object):
             persis = "pers"
             clusterID = "clst"
         persisField = persis + bufferDistanceList[0]
-        where_clause = persisField + " IS NOT NULL"
+        where_clause = '{} IS NOT NULL And VISIBLE = 1'.format(persisField)
 
         # ============================ #
         # Create visualization results #
@@ -247,7 +277,7 @@ class temporalVisuals(object):
         addLayer = arcpy.mapping.Layer(targetLyr)
         addLayer.name = "Filtered Targets (applied selection criteria)"
         logging.info("Layer (Mapping): '%s' layer object created from '%s' layer", addLayer.name, targetLyr)
-        addLayer.visible = False
+        addLayer.visible = True
         arcpy.mapping.AddLayer(df, addLayer, "TOP")
         logging.info("Add Layer (Mapping): '%s' layer added to top of dataframe", addLayer.name)
 
@@ -288,7 +318,7 @@ class temporalVisuals(object):
             # Add persistence count layer
             arcpy.AddMessage("Adding persistence count layer...")
             persisLyr = "persisLyr" + radius
-            where_clause = persisField + " IS NOT NULL"
+##            where_clause = persisField + " IS NOT NULL"
             arcpy.MakeFeatureLayer_management(targetsFC, persisLyr, where_clause)
             addLayer = arcpy.mapping.Layer(persisLyr)
             addLayer.name = "Persistence by Time (Persistence Count)"
