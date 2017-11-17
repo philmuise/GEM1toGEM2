@@ -52,17 +52,17 @@ import updateMasterGDB                                    # get module reference
 reload(updateMasterGDB)                                   # reload step 1
 from updateMasterGDB import updateMasterGDB             # reload step 2
 
-#import temporalPersisDay                                    # get module reference for reload
-#reload(temporalPersisDay)                                   # reload step 1
-#from   temporalPersisDay import temporalPersisDay             # reload step 2
+import temporalPersisDay                                    # get module reference for reload
+reload(temporalPersisDay)                                   # reload step 1
+from   temporalPersisDay import temporalPersisDay             # reload step 2
 
-#import temporalPersisYear                                    # get module reference for reload
-#reload(temporalPersisYear)                                   # reload step 1
-#from   temporalPersisYear import temporalPersisYear             # reload step 2
+import temporalPersisYear                                    # get module reference for reload
+reload(temporalPersisYear)                                   # reload step 1
+from   temporalPersisYear import temporalPersisYear             # reload step 2
 
-#import temporalVisuals                                    # get module reference for reload
-#reload(temporalVisuals)                                   # reload step 1
-#from   temporalVisuals import temporalVisuals             # reload step 2
+import temporalVisuals                                    # get module reference for reload
+reload(temporalVisuals)                                   # reload step 1
+from   temporalVisuals import temporalVisuals             # reload step 2
 
 import getChloro                                    # get module reference for reload
 reload(getChloro)                                   # reload step 1
@@ -84,7 +84,7 @@ class Toolbox(object):
         self.alias = "oil_seep_analysis"
 
         # List of tool classes associated with this toolbox
-        self.tools = [condition_darkTargets, updateMasterGDB, getChloro, applyChloro,getRSImageInfo, mergeDates ]
+        self.tools = [condition_darkTargets, updateMasterGDB, getChloro, applyChloro,getRSImageInfo, mergeDates,temporalPersisDay, temporalPersisYear, temporalVisuals ]
 
 def main():
 	print "In GEM2_Oil_Seep_Detection_Analysis.pyt main()..."
