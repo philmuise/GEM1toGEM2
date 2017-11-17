@@ -751,6 +751,7 @@ class temporalPersistence(object):
                                 row[1] = clusterIDString
                         cursor.updateRow(row)
                 logging.info("Update Cursor: Cluster ID values updated for '%s' feature class\n", finalOutput)
+
                 logging.info("Processing for dark targets at '%s' meters complete\n", bufferDist)
 
             logging.info("Processing for cluster IDs complete\n")
