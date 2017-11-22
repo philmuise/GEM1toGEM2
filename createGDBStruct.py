@@ -5,7 +5,7 @@
 # HISTORY                                                                      #
 # -------                                                                      #
 # Developed by D. Hennessy, January 2017.                                      #
-# Last modified: 28 March 2017 by D. Hennessy.                                 #
+# Modified for GEM1 to GEM2 by Philippe Muise                                  #
 #==============================================================================#
 """USAGE
 Module imported and used as part of the "condition_darkTargets.py" script. It is

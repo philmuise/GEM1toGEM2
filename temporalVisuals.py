@@ -58,7 +58,7 @@ import logging
 class temporalVisuals(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "4_Temporal Visualization"
+        self.label = "6. Temporal Visualization"
         self.description = ""
         self.canRunInBackground = False
 
@@ -154,7 +154,7 @@ class temporalVisuals(object):
 
         # Set default subtype to "Dark Feature"
         arcpy.SetDefaultSubtype_management(targetsFC, "1")
-        
+
         # Set each feature to a VISIBLE value of 1. This will be used in the visualisation analysis process to hide look-a-likes
         with arcpy.da.UpdateCursor(targetsFC, fieldName) as cursor:
              for row in cursor:

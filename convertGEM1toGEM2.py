@@ -1,3 +1,36 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+#==============================================================================#
+# HISTORY                                                                      #
+# -------                                                                      #
+# Developed by Philippe Muise, October 2017                                    #
+#                                                                              #
+#==============================================================================#
+"""USAGE
+Module imported and used as the "2a_Condition Yearly Dark Targets Data" script
+tool in the "GEM1 to GEM2 Toolbox".
+
+SUMMARY
+Creates Dark Feature polygon files based on individual Radarsat-2 images. The
+information is found in the NOS_XXXX_RSimageinfo
+
+INPUT
+- NOS file containing radarsat ID information
+
+- Attribute Evaluation Criteria (user input): SQL expression which is used to determine
+which set of attributes is selected and applied in those regions of overlapping
+dark targets which contains two sets of attributes. A default value is entered,
+however the parameter can be customized.
+
+OUTPUT
+- Yearly Data File Geodatabase (automated output): A file geodatabase is
+produced in the same folder of the input year folder and is also named the same
+as the input year folder. (e.g. 2010.gdb) The FGDB contains the feature classes
+of all the dark targets per acquisition day, as well as the working files used
+in the conditioning, which are placed in the "dark_features", "feature_overlap"
+and "feature_union" feature datasets."""
+
 import arcpy
 import os
 import sys

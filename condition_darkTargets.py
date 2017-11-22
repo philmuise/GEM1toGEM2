@@ -12,21 +12,15 @@ Module imported and used as the "1_Condition Yearly Dark Targets Data" script
 tool in the "GEM2_Oil_Seep_Detection_Analysis" Python Toolbox.
 
 SUMMARY
-Imports and conditions dark targets shapefiles produced by the target feature
-extraction process on RADARSAT-2 imagery. Organizes data as feature classes
-in a file geodatabase by acquisition day.
+This script separates all the dark targets from the 'NOS_XXXX_RSimageinfo'
+shapefile for a selected year produced by the visual interpretation process
+on RADARSAT-2 imagery following GEM1 development. The data is cleaned up and
+same day acquisitions are merged together into a single feature class per day.
+The data is conditioned and organized in a file geodatabase that is created
+with the same name and located in the same directory as the selected folder.
 
 INPUT
-- Year Folder (user input): Folder containing the desired year's shapefiles produced by the
-RADARSAT-2 dark target feature extraction process. File structure must meet the
-agreed upon hierarchy in order for the script to find the shapefiles in the
-appropriate locations. (shapefiles are located within the "Features" folder,
-which are in turn located in its specific radar acquisition folder)
-
-- Attribute Evaluation Criteria (user input): SQL expression which is used to determine
-which set of attributes is selected and applied in those regions of overlapping
-dark targets which contains two sets of attributes. A default value is entered,
-however the parameter can be customized.
+- NOS File (user input):'NOS_XXXX_RSimageinfo' shapefile developed by Step 1.
 
 OUTPUT
 - Yearly Data File Geodatabase (automated output): A file geodatabase is
@@ -60,11 +54,6 @@ import evalAttributes                       # get module reference for reload
 reload(evalAttributes)                      # reload step 1
 from evalAttributes import evalAttributes   # reload step 2
 
-import singleDayMerge2GDB                           # get module reference for reload
-reload(singleDayMerge2GDB)                          # reload step 1
-from singleDayMerge2GDB import singleDayMerge2GDB   # reload step 2
-
-
 class condition_darkTargets(object):
     """
     Calls on a series of scripts to import the shapefiles produced by the
@@ -74,9 +63,9 @@ class condition_darkTargets(object):
     """
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "1b. Condition Yearly Dark Targets Data"
+        self.label = "2a. Condition Yearly Dark Targets Data"
         self.description = "Imports dark target shapefiles produced from a \
-        specific year's radar acquisition imagery. The data is conditioned for \
+        specific year's radar acquisition imagery. The data is conditioned for\
         subsequent analysis and exported into a file geodatabase."
         self.canRunInBackground = False
 
@@ -85,7 +74,7 @@ class condition_darkTargets(object):
 
         params0 = arcpy.Parameter(
             displayName="Input: NOS File to be converted to GEM2",
-            name="year_workspace",
+            name="NOS File with RSid information",
             datatype="DEShapefile",
             parameterType="Required",
             direction="Input")
@@ -180,17 +169,6 @@ class condition_darkTargets(object):
         loadSHPparams[1] = parameters[1]
         # Execute Load Dark Targets script
         loadSHP.execute(loadSHPparams, None)
-
-        # ================================ #
-        # Merge dates into Feature Classes #
-        # ================================ #
-
-        loadMerge = singleDayMerge2GDB()
-        loadMergeparams = loadMerge.getParameterInfo()
-        # Define dark feature folder value
-        loadMergeparams[0] = parameters[1]
-        # Define GDB location to save values
-        loadMergeparams[1] = parameters[2]
 
         logging.info("condition_darkTargets.py script finished.\n\n")
 
