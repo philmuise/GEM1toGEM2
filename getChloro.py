@@ -52,7 +52,7 @@ import time
 class getChloro(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "1a_Download Chlorophyll_a NetCDF Files"
+        self.label = "3a. Download Chlorophyll_a NetCDF Files"
         self.description = "Downloads MODIS chlorophyll_a data for each\
          RADARSAT-2 acquisition found in the dark targets yearly GDBs."
         self.canRunInBackground = False

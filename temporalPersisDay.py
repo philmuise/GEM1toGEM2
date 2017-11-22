@@ -54,7 +54,7 @@ from temporalPersistence import temporalPersistence # reload step 2
 class temporalPersisDay(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "3a_Temporal Persistence Analysis (day to day)"
+        self.label = "5a. Temporal Persistence Analysis (day to day)"
         self.description = "Determines persistence between dark targets at set \
         distances and spanning different times (daily or yearly analysis)."
         self.canRunInBackground = False
@@ -76,7 +76,7 @@ class temporalPersisDay(object):
             parameterType="Optional",
             direction="Input")
 
-        params1.value = "PcontrDb < -2.5 AND PwindMin < 4 AND SwindMean > 2 AND SwindMean < 10 AND Lcard < 10 AND Ldens < 0.0000075 AND SstdDb_Th < Th_SstdDb"
+##        params1.value = "PcontrDb < -2.5 AND PwindMin < 4 AND SwindMean > 2 AND SwindMean < 10 AND Lcard < 10 AND Ldens < 0.0000075 AND SstdDb_Th < Th_SstdDb"
 
         params2 = arcpy.Parameter(
             displayName="Input: Attribute Rejection Criteria",
@@ -85,7 +85,7 @@ class temporalPersisDay(object):
             parameterType="Optional",
             direction="Input")
 
-        params2.value = "Pice = 1 OR PnearLand = 1 OR PeulerN < -50"
+##        params2.value = "Pice = 1 OR PnearLand = 1 OR PeulerN < -50"
 
         params3 = arcpy.Parameter(
             displayName="Input: Persistence Radius (meters)",

@@ -13,19 +13,10 @@ executed after "evalAttributes.py" and is the final script executed as part of t
 condition_darkTargets.py script.
 
 SUMMARY
-Merges the polygons
+Merges the polygons from the same date, but from different Radarsat-2 images.
 
 INPUT
-- Total Overlap Feature Classes (automated input): Feature classes containing all
-overlapping polygons with two sets of attributes. Provided as input in order to
-access the combined targetID and assign it to the corresponding polygons in the
-final output feature class.
-
-- noOverlap Feature Classes (automated output): Feature classes containing all
-regions from overlapping polygons that already had a single set of attributes.
-
-- toMerge Feature Classes (automated output): Feature classes containing all
-overlapping regions that have been evaluated with a single set of attributes.
+- Dark features dataset
 
 OUTPUT
 - Acquisition day Feature Classes (automated output): Output feature classes
@@ -44,14 +35,14 @@ import logging
 class singleDayMerge2GDB(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "2. singleDayMerge2GDB"
-        self.description = "2. Merges dark targets feature classes into single \
+        self.label = "2b. Merge Dark Feature Shapefiles to Single Dates"
+        self.description = "2b. Merges dark targets feature classes into single \
         acquisition swathes by day."
         self.canRunInBackground = False
 
     def getParameterInfo(self):
         """Define parameter definitions"""
-        params = [None]*2
+        params = [None]
 
         params[0] = arcpy.Parameter(
             displayName="Dark Features Dataset",
@@ -60,12 +51,6 @@ class singleDayMerge2GDB(object):
             parameterType="Required",
             direction="Input")
 
-        params[1] = arcpy.Parameter(
-            displayName="GDB Workspace",
-            name="gdbWorkspace",
-            datatype=["DEWorkspace", "DEFeatureDataset"],
-            parameterType="Required",
-            direction="Input")
         return params
 
     def isLicensed(self):
@@ -87,7 +72,7 @@ class singleDayMerge2GDB(object):
         """The source code of the tool."""
         # Define variables from parameters
         featWorkspace = parameters[0].valueAsText
-        gdbWorkspace = parameters[1].valueAsText
+        gdbWorkspace = os.path.dirname(featWorkspace)
 
         #Set workspace as dark features folder
         arcpy.env.workspace = featWorkspace
@@ -104,8 +89,8 @@ class singleDayMerge2GDB(object):
             else:
                 fcDictByDate[fcSplit[1]] = [fcPath]
 
-        arcpy.AddMessage("output of each date into the workspace" )
         for key in fcDictByDate:
+
                 #Check if only one shapefile for a specific date
                 if len(fcDictByDate[key]) == 1:
                     arcpy.AddMessage("Saving shapefile as Feature class in {}".format(gdbWorkspace))
@@ -120,8 +105,8 @@ class singleDayMerge2GDB(object):
                      mergeFeatureClasses = []
                      for fc in fcDictByDate[key]:
                          mergeFeatureClasses.append(fc)
-                         arcpy.AddMessage("Saving {} to {} in {}".format(fc,gdbWorkspace,outputString))
+
                      outputString = "RS2_" + key
+                     arcpy.AddMessage("Saving {} to {} in {}".format(fc,gdbWorkspace,outputString))
                      #Saves the dark feature polygons for a specific date to a feature class for that date to the year GDB
                      arcpy.Merge_management(mergeFeatureClasses,os.path.join(gdbWorkspace,outputString))
-

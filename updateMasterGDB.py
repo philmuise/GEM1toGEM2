@@ -41,7 +41,7 @@ import logging
 class updateMasterGDB(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "2_Populate Master GDB"
+        self.label = "4. Populate Master GDB"
         self.description = "Consolidates the contents of the yearly dark targets\
          GDBs into the master GDB for follow-on analysis."
         self.canRunInBackground = False

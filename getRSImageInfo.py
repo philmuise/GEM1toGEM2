@@ -35,15 +35,18 @@ import logging
 class getRSImageInfo(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "1a-getRSImageInfo "
-        self.description = ""
+        self.label = "1. GEM1 NOS File to GEM2 Compatibility Tool "
+        self.description = "The first step in the GEM1 to GEM2 process, this\
+         tool populates the NOS file following GEM1 Step 5 with information to\
+         access the Radarsat-2 images associated with each dark feature. See \
+         help document to make sure the NOS File is properly organised first."
         self.canRunInBackground = False
 
     def getParameterInfo(self):
         """Define parameter definitions"""
         params0 = arcpy.Parameter(
             displayName="Input: NOS File",
-            name="working_folder",
+            name="NOS File",
             datatype="DEShapefile",
             parameterType="Required",
             direction="Input")
@@ -87,9 +90,10 @@ class getRSImageInfo(object):
         # Scratch Folder
         scratchFolder = os.path.join(os.path.dirname(inputMaskShp),"Scratch")
         if not os.path.exists(scratchFolder):
-                os.makedirs(scratchFolder)
-                arcpy.AddMessage("{} folder made".format(scratchFolder))
-        # Intermediate variables: will be deleted at the end
+            os.makedirs(scratchFolder)
+            arcpy.AddMessage("{} folder made".format(scratchFolder))
+
+
         # Output
         outMask = os.path.join(scratchFolder,"{}_RSImageInfo".format(os.path.splitext(os.path.basename(inputMaskShp))[0]))
         footprintShp = os.path.join(scratchFolder,"footprint.shp")
@@ -148,14 +152,14 @@ class getRSImageInfo(object):
 
         # Make layer from feature class for selection
         arcpy.MakeFeatureLayer_management(tempOutMask,'overlapping','OVERLAP = 1' )
-        with arcpy.da.SearchCursor(r'overlapping', 'SEEP_ID') as cursor:
+        with arcpy.da.SearchCursor('overlapping', 'SEEP_ID') as cursor:
             seepIDList = [row[0] for row in cursor]
         duplicateSeepID = list(set(x for x in seepIDList if seepIDList.count(x)>1))
-        with arcpy.da.UpdateCursor(r'overlapping',['FID','SEEP_ID']) as cursor:
+        with arcpy.da.UpdateCursor('overlapping',['FID','SEEP_ID']) as cursor:
             for row in cursor:
                 if row[1] in duplicateSeepID and (row[0] % 2 == 0):
-                        row[1] = 0
-                        cursor.updateRow(row)
+                    row[1] = 0
+                    cursor.updateRow(row)
         arcpy.SelectLayerByAttribute_management('overlapping', 'NEW_SELECTION', "\"SEEP_ID\" <> '0'")
 
         # Add 'Pid' field and populate for intergration into GEM2. Start counter at 1
@@ -180,3 +184,4 @@ class getRSImageInfo(object):
         arcpy.AddMessage("The mask layer with image attributes is created.")
 
         return final_output
+

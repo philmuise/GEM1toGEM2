@@ -64,7 +64,7 @@ import logging
 class applyChloro(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "1b_Apply Chlorophyll_a Values"
+        self.label = "3b. Apply Chlorophyll_a Values"
         self.description = "Creates and applies chlorophyll_a attribute value\
          to each dark targets feature class located in the yearly GDBs."
         self.canRunInBackground = False
@@ -88,7 +88,7 @@ class applyChloro(object):
         params1.value = 5
 
         params2 = arcpy.Parameter(
-            displayName="Input: Chlorophyll Day Range Size From Date of Acquisition",
+            displayName="Input: Chlorophyll Day Range Size From Date of Acquisition. This must less than or equal to the day range selected in the previous step.",
             name="Day Range",
             datatype="GPLong",
             parameterType="Required",
@@ -394,12 +394,12 @@ class applyChloro(object):
               Modified by Philippe Muise"""
         arcpy.env.workspace = workspace
         arcpy.AddMessage("\nCleaning workspace...")
-        pointList = arcpy.ListFeatureClasses("*_point")
+        pointList = arcpy.ListFeatureClasses("*point*")
         arcpy.AddMessage("Deleting point feature classes...")
         for fc in pointList:
             arcpy.Delete_management(fc)
             logging.info("Delete: '%s' feature class deleted", fc)
-        extractList = arcpy.ListFeatureClasses("*_extract")
+        extractList = arcpy.ListFeatureClasses("*extract*")
         arcpy.AddMessage("Deleting raster value extraction feature classes...")
         for fc in extractList:
             arcpy.Delete_management(fc)

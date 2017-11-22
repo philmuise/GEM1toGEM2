@@ -72,19 +72,24 @@ import applyChloro                                    # get module reference for
 reload(applyChloro)                                   # reload step 1
 from   applyChloro import applyChloro             # reload step 2
 
-import mergeDates                                         # get module reference for reload
-reload(mergeDates)                  # reload step 1
-from   mergeDates import mergeDates             # reload step 2
+
+#import mergeDates                             # get module reference for reload
+#reload(mergeDates)                      # reload step 1
+#from   mergeDates import mergeDates      # reload step 2
+
+import singleDayMerge2GDB                                         # get module reference for reload
+reload(singleDayMerge2GDB)                  # reload step 1
+from  singleDayMerge2GDB import singleDayMerge2GDB             # reload step 2
 
 class Toolbox(object):
     def __init__(self):
         """Define the toolbox (the name of the toolbox is the name of the
         .pyt file)."""
-        self.label = "GEM2 Oil Seep Detection and Analysis"
+        self.label = "GEM1 to GEM2 Toolbox"
         self.alias = "oil_seep_analysis"
 
         # List of tool classes associated with this toolbox
-        self.tools = [condition_darkTargets, updateMasterGDB, getChloro, applyChloro,getRSImageInfo, mergeDates,temporalPersisDay, temporalPersisYear, temporalVisuals ]
+        self.tools = [singleDayMerge2GDB,condition_darkTargets, updateMasterGDB, getChloro, applyChloro,getRSImageInfo,temporalPersisDay, temporalPersisYear, temporalVisuals ]
 
 def main():
 	print "In GEM2_Oil_Seep_Detection_Analysis.pyt main()..."

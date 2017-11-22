@@ -121,7 +121,7 @@ class temporalPersistence(object):
             parameterType="Optional",
             direction="Input")
 
-        params1.value = "PcontrDb < -2.5 AND PwindMin < 4 AND SwindMean > 2 AND SwindMean < 10 AND Lcard < 10 AND Ldens < 0.0000075 AND SstdDb_Th < Th_SstdDb"
+##        params1.value = "PcontrDb < -2.5 AND PwindMin < 4 AND SwindMean > 2 AND SwindMean < 10 AND Lcard < 10 AND Ldens < 0.0000075 AND SstdDb_Th < Th_SstdDb"
 
         params2 = arcpy.Parameter(
             displayName="Input: Attribute Rejection Criteria",
