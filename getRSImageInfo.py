@@ -18,6 +18,7 @@ is added to each polygon.
 
 INPUT
 - NOS File (user input): Polygon Shapefile of dark features for a specific year.
+The shapefile must have the same fields as the template file.
 
 - Mosaic Datasets (user input): Collection of mosaic datasets for that specific year
 found in a geodatabase. GEM1 Step 5 output.

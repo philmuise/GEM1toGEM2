@@ -5,7 +5,7 @@
 # HISTORY                                                                      #
 # -------                                                                      #
 # Developed by D. Hennessy, January 2017.                                      #
-# Last modified: November 2017, by Phiippe Muise                               #
+# Last modified: November 2017, by Philippe Muise                              #
 #==============================================================================#
 """USAGE
 Module imported and used for the "4_Temporal Visualization" tool script in the
