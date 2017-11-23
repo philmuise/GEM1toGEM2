@@ -8,15 +8,15 @@
 #                                                                              #
 #==============================================================================#
 """USAGE
-Module imported and used as part of the condition_darkTargets.py script. It is
-executed after "evalAttributes.py" and is the final script executed as part of the
-condition_darkTargets.py script.
+Lauched after condition_darkTargets.py, this tool populates the yearly geodatabase
+with the dark features by day rather than by swath.
 
 SUMMARY
 Merges the polygons from the same date, but from different Radarsat-2 images.
 
 INPUT
-- Dark features dataset
+- Dark features dataset containing all dark features organised by Radarsat-2
+image.
 
 OUTPUT
 - Acquisition day Feature Classes (automated output): Output feature classes

@@ -26,6 +26,10 @@ chlorophyll_a raster data.
 - Chlorophyll_a Data FTP Directory (default user input): String parameter containing
 the FTP directory where the chlorophyll_a MODIS data is available for download.
 
+- Chlorophyll Day Range Size From Date of Acquisition (user input): Integer parameter
+indicating the range of days +/- from the date of acquistion of the dark features
+feature class.
+
 OUTPUT
 - Chlorophyll_a NetCDF Files (automated output): Chlorophyll_a raster data in
 NetCDF format. Each raster file consists of the global acquisition data for the

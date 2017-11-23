@@ -64,7 +64,7 @@ from temporalPersistence import temporalPersistence # reload step 2
 class temporalPersisYear(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "5b_Temporal Persistence Analysis (year to year)"
+        self.label = "5b. Temporal Persistence Analysis (year to year)"
         self.description = "Determines persistence between dark targets at set \
         distances and spanning different times (daily or yearly analysis)."
         self.canRunInBackground = False
