@@ -5,7 +5,7 @@
 # HISTORY                                                                      #
 # -------                                                                      #
 # Developed by D. Hennessy, January 2017.                                      #
-# Last modified: 31 March 2017 by D. Hennessy.                                 #
+# Last modified: November 2017, by Phiippe Muise                               #
 #==============================================================================#
 """USAGE
 Module imported and used for the "4_Temporal Visualization" tool script in the
@@ -136,6 +136,7 @@ class temporalVisuals(object):
 
         # ========================================== #
         # Create and populate VISIBLE subtype Field  #
+        # Added by Philippe Muise, November 2017     #
         # ========================================== #
 
         # Add VISIBLE field

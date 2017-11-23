@@ -88,7 +88,7 @@ class applyChloro(object):
         params1.value = 5
 
         params2 = arcpy.Parameter(
-            displayName="Input: Chlorophyll Day Range Size From Date of Acquisition. This must less than or equal to the day range selected in the previous step.",
+            displayName="Input: Chlorophyll Day Range Size From Date of Acquisition",
             name="Day Range",
             datatype="GPLong",
             parameterType="Required",
